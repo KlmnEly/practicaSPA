@@ -1,11 +1,4 @@
-export async function crudUsers () {
-
-async function getUsers() {
-    alert('Estás en la ruta de usuarios')
-}
-
-async function editUser () {
-
-}
+export function crudUsers () {
+    alert(`Bienvenido ${localStorage.getItem('loggedInUser')}!`)
 
 }

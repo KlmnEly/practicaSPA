@@ -48,3 +48,14 @@ npm create vite@latest practica --template vanilla
 ├───package.json
 └───README.md
 ```
+
+### Lanzar el proyecto
+```
+npm install
+```
+```
+npm run dev
+```
+```
+json-server --watch database/db.json --port 8000
+```

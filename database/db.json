@@ -1,20 +1,68 @@
 {
-    "users": [
-        {
-            "id": "1",
-            "username": "kelmin",
-            "password": "123",
-            "role_id": "1"
-        }
-    ],
-    "roles": [
-        {
-            "id": "1",
-            "name": "gestor"
-        },
-        {
-            "id": "2",
-            "name": "administrador"
-        }
-    ]
+  "users": [
+    {
+      "id": "1",
+      "username": "kelmin",
+      "password": "123",
+      "created": "hoy"
+    },
+    {
+      "id": "2",
+      "username": "alberoto",
+      "password": "12345",
+      "created": "2025-07-14T04:15:11.771Z"
+    },
+    {
+      "id": "3",
+      "username": "marco",
+      "password": "12345",
+      "created": "2025-07-14T04:15:11.771Z"
+    },
+    {
+      "id": "4",
+      "username": "mafe",
+      "password": "12345",
+      "created": "2025-07-14T04:15:11.771Z"
+    },
+    {
+      "id": "7",
+      "username": "alex",
+      "password": "paracetamol",
+      "created": "2025-07-14T04:41:13.695Z"
+    },
+    {
+      "id": "8",
+      "username": "juanchoi",
+      "password": "1234",
+      "created": "2025-07-14T04:42:42.440Z"
+    },
+    {
+      "id": "5",
+      "username": "mirandakelmin@litoral.edu.co",
+      "password": "123",
+      "created": "2025-07-14T04:43:38.999Z"
+    },
+    {
+      "id": "9",
+      "username": "señor petro",
+      "password": "vivacolombiavivafalcao",
+      "created": "2025-07-14T04:45:53.729Z"
+    },
+    {
+      "username": "nayo bukele",
+      "password": "elnayo",
+      "created": "2025-07-14T04:47:56.690Z",
+      "id": "10"
+    }
+  ],
+  "roles": [
+    {
+      "id": "1",
+      "name": "gestor"
+    },
+    {
+      "id": "2",
+      "name": "administrador"
+    }
+  ]
 }

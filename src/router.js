@@ -1,11 +1,12 @@
-import { users } from "../database/apis.js";
-import { crudUsers } from "./controller/crudUsers.js"
+import { sendData, getData, deleteUser, editUser, updateUser } from "./controller/crudUsers.js"
+
 const routes = {
     "/": "/src/views/home.html",
     "/login": "/src/views/auth/login.html",
     "/register": "/src/views/auth/register.html",
     "/users": "/src/views/users/index.html"
 };
+const users = await getData();
 
 /* Exportamos funcion renderRoute */
 export async function renderRoute() {
@@ -13,7 +14,7 @@ export async function renderRoute() {
     const path = location.pathname;
     /* La constante app captura el div con el id "app" */
     const app = document.getElementById('app');
-    let loggedInUser = localStorage.getItem('loggedInUser') ? true : false; 
+    let loggedInUser = localStorage.getItem('loggedInUser') ? true : false;
     /* la constante file utilizará la ruta que le pasemos por medio de "path" y la buscará en routes */
     const file = routes[path];
 
@@ -33,24 +34,90 @@ export async function renderRoute() {
         app.innerHTML = html
 
         if (loggedInUser) {
-
-            if (path === "/login" || path === "/register") {
-                window.location.href = '/'; 
+            /* Cuando el usuario esté logeado, no me permita acceder a los formularios de ingreso */
+            if (path === "/login") {
+                window.location.href = '/';
                 return;
             }
 
             switch (file) {
                 case "/src/views/users/index.html":
-                    crudUsers();
-                    break;
 
+                    users.forEach(u => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                        <td>${u.id}</td>
+                        <td>${u.username}</td>
+                        <td>${u.password}</td>
+                        <td>${u.created}</td>
+                        <td>
+                        <button data-id="${u.id}" class="btn btn-warning edit-btn">Editar</button>
+                        <button data-id="${u.id}" class="btn btn-danger delete-btn">Eliminar</button>
+                        </td>
+                        `;
+
+                        const deleteButton = row.querySelector('.delete-btn');
+                        if (deleteButton) {
+                            deleteButton.addEventListener('click', () => {
+                                deleteUser(u.id);
+                            });
+                        }
+
+                        const editButton = row.querySelector('.edit-btn');
+                        if (editButton) {
+                            editButton.addEventListener('click', () => {
+                                editUser(u.id);
+                                console.log(`Editar usuario con ID: ${u.id}`);
+                            });
+                        }
+                        const btnSendEdit = document.getElementById('btnSendEdit');
+                        btnSendEdit.addEventListener('click', () => {
+                            updateUser()
+                        })
+
+                        document.querySelector('#userTable tbody').appendChild(row)
+                    })
+
+
+
+
+
+
+                    break;
+                case "/src/views/auth/register.html":
+
+                    document.getElementById("btnRegister").addEventListener("click", () => {
+
+                        const username = document.getElementById("username").value;
+                        const password = document.getElementById("password").value;
+                        const repeatPassword = document.getElementById("repeatPassword").value;
+
+                        if (!username || !password || !repeatPassword) {
+                            alert("Todos los campos son requeridos");
+                            return;
+                        }
+
+                        if (password !== repeatPassword) {
+                            alert('Contraseñas no coinciden')
+                            return;
+                        }
+
+                        const form = {
+                            username: username,
+                            password: password,
+                            created: new Date().toISOString(),
+                        };
+                        sendData(form);
+                    });
+                    break;
             }
+
         } else {
 
             /* Si estamos en una ruta que no sea ni login ni register, enviame a login */
-            if (path !== "/login" && path !== "/register") { 
+            if (path !== "/login") {
                 window.location.href = '/login';
-                return; 
+                return;
             }
 
             if (path === "/login") {
@@ -83,7 +150,7 @@ export async function renderRoute() {
 
 
 
-// localStorage.setItem('username', username); // Crea un item en el local storage
-// localStorage.getItem('nombre'); // Trae un item con la clave
-// localStorage.removeItem('nombre'); // Eliminamos un item en especifico
+// localStorage.setItem('username', 'kelmin'); // Crea un item en el local storage
+// localStorage.getItem('username'); // Trae un item con la clave
+// localStorage.removeItem('username'); // Eliminamos un item en especifico
 // localStorage.clear(); // Eliminamos todo en el localstorage

@@ -28,6 +28,7 @@ npm create vite@latest practica --template vanilla
 ```
 
 ### Estructura
+```
 ├───database
     └───db.json
 ├───node_modules
@@ -46,4 +47,4 @@ npm create vite@latest practica --template vanilla
 ├───package-lock.json
 ├───package.json
 └───README.md
-        
+```
